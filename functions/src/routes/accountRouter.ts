@@ -24,6 +24,7 @@ accountRouter.get("/check/:uid", async (req, res) => {
     errorResponse(err, res);
   }
 });
+
 accountRouter.get("/login", async (req, res) => {
   const { email, userName, password } = req.query;
   const search: LogInCreds = {
@@ -51,6 +52,21 @@ accountRouter.get("/login", async (req, res) => {
     errorResponse(err, res);
   }
 });
+
+accountRouter.get("/all", async (req, res) => {
+  try {
+    const client = await getClient();
+    const results = await client
+      .db()
+      .collection<Account>("accounts")
+      .find()
+      .toArray();
+    res.json(results);
+  } catch (err) {
+    errorResponse(err, res);
+  }
+});
+
 accountRouter.post("/", async (req, res) => {
   const newAccount: Account = req.body;
   try {

@@ -19,4 +19,5 @@ export default interface Account {
   dailyGoalOz: number;
   streakCount: number;
   dailyReports: Report[];
+  friends: string[];
 }
